@@ -1,4 +1,5 @@
-﻿using ConsoleApp1.Contexts;
+﻿using ConsoleApp1;
+using ConsoleApp1.Contexts;
 using ConsoleApp1.Repositories;
 using ConsoleApp1.Services;
 using Microsoft.EntityFrameworkCore;
@@ -21,5 +22,10 @@ var builder = Host.CreateDefaultBuilder().ConfigureServices(services =>
     services.AddScoped<NoteService>();
     services.AddScoped<RoleService>();
 
+    services.AddSingleton<ConsoleUI>();
+
 
 }).Build();
+
+var consoleUI = builder.Services.GetRequiredService<ConsoleUI>();
+consoleUI.CreateCompany_UI();
