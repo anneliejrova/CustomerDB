@@ -39,6 +39,13 @@ internal class ContactPersonService
         return contactPersonEntity;
     }
 
+    public ContactPersonEntity GetContactPersonByEmail(string personalEmail)
+    {
+        var contactPersonEntity = _contactPersonRepository.Get(x => x.PersonalEmail == personalEmail);
+        return contactPersonEntity;
+    }
+
+
     public IEnumerable<ContactPersonEntity> GetAllContactPersons()
     {
         var contactPersons = _contactPersonRepository.GetAll();
