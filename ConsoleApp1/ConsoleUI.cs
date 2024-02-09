@@ -1,4 +1,5 @@
 ﻿
+using ConsoleApp1.Repositories;
 using ConsoleApp1.Services;
 using System.Runtime.InteropServices;
 
@@ -9,6 +10,7 @@ internal class ConsoleUI
     private readonly CompanyService _companyService;
     private readonly NoteService _noteService;
     private readonly ContactPersonService _contactPersonService;
+
 
     public ConsoleUI(CompanyService companyService, NoteService noteService, ContactPersonService contactPersonService)
     {
@@ -177,7 +179,7 @@ internal class ConsoleUI
             Console.WriteLine($"          {company.Address.PostalCode} {company.Address.City}");
             Console.WriteLine();
             Console.WriteLine("        Kontaktperson: ");
-            Console.WriteLine($"          ????Jobbtitel????????");
+ //          Console.WriteLine($"          {company.ContactPerson.Role}");
  //ROLE???
             Console.WriteLine($"          {company.ContactPerson.FirstName} {company.ContactPerson.LastName}");
             Console.WriteLine($"          direkt nummer:{company.ContactPerson.DirectPhone}");
@@ -352,7 +354,7 @@ internal class ConsoleUI
         else 
         {
             Console.Clear();
-            Console.WriteLine("Vill du raddera detta företag och dess Information?");
+            Console.WriteLine("Vill du raddera detta företag och all dess Information?");
             Console.WriteLine($"FÖRETAG:  FöretagsID: {company.Id}");
             Console.WriteLine($"          {company.CompanyName}");
             Console.WriteLine($"          {company.Phone}");
@@ -372,6 +374,14 @@ internal class ConsoleUI
                 switch (option)
                 {
                     case "0":
+                        //var companyEntity = _companyRepository.Get(x => x.Id == id);
+
+                        var noteId = company.NoteId;
+                        _noteService.DeleteNote(noteId);
+
+                        var contactPersonId = company.ContactPersonId;
+                        _contactPersonService.DeleteContactPerson(contactPersonId);
+
                         _companyService.DeleteCompany(id);
                         Console.WriteLine("Företagskund är borttagen");
                         break;

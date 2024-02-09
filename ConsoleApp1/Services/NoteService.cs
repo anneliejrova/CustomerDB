@@ -23,8 +23,8 @@ internal class NoteService
 
     public NoteEntity GetNoteById(int id)
     {
-        var noteEntit = _noteRepository.Get(x => x.Id == id);
-        return noteEntit;
+        var noteEntity = _noteRepository.Get(x => x.Id == id);
+        return noteEntity;
     }
 
     public IEnumerable<NoteEntity> GetAllNotes()

@@ -70,6 +70,8 @@ internal class CompanyService
 
     public void DeleteCompany(int id)
     {
+        
         _companyRepository.Delete(x => x.Id == id);
     }
+
 }
