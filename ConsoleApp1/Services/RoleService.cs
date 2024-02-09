@@ -27,6 +27,12 @@ internal class RoleService
         return roleEntity;
     }
 
+    public RoleEntity GetRoleById(string role)
+    {
+        var roleEntity = _roleRepository.Get(x => x.Role == role);
+        return roleEntity;
+    }
+
     public IEnumerable<RoleEntity> GetAllRoles() 
     { 
         var roles = _roleRepository.GetAll();

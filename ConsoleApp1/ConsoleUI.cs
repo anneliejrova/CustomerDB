@@ -1,4 +1,5 @@
 ﻿
+using ConsoleApp1.Entities;
 using ConsoleApp1.Repositories;
 using ConsoleApp1.Services;
 using System.Runtime.InteropServices;
@@ -10,13 +11,14 @@ internal class ConsoleUI
     private readonly CompanyService _companyService;
     private readonly NoteService _noteService;
     private readonly ContactPersonService _contactPersonService;
+    private readonly RoleService _roleService;
 
-
-    public ConsoleUI(CompanyService companyService, NoteService noteService, ContactPersonService contactPersonService)
+    public ConsoleUI(CompanyService companyService, NoteService noteService, ContactPersonService contactPersonService, RoleService roleService)
     {
         _companyService = companyService;
         _noteService = noteService;
         _contactPersonService = contactPersonService;
+        _roleService = roleService;
     }
 
     public void MainMenu()
@@ -127,9 +129,7 @@ internal class ConsoleUI
         foreach (var company in companies)
 
         {
-            Console.WriteLine();
             Console.WriteLine($"FÖRETAG:  {company.CompanyName}");
-//id???
             Console.WriteLine($"          {company.Website}");
             Console.WriteLine($"          {company.Phone}");
             Console.WriteLine($"          {company.Email}");
@@ -138,8 +138,6 @@ internal class ConsoleUI
             Console.WriteLine($"          {company.Address.PostalCode} {company.Address.City}");
             Console.WriteLine();
             Console.WriteLine("        Kontaktperson: ");
-            Console.WriteLine($"          {company.ContactPerson.Role}");
-//ROLE???
             Console.WriteLine($"          {company.ContactPerson.FirstName} {company.ContactPerson.LastName}");
             Console.WriteLine($"          direkt nummer:{company.ContactPerson.DirectPhone}");
             Console.WriteLine($"          personlig email:{company.ContactPerson.PersonalEmail}");
@@ -170,7 +168,6 @@ internal class ConsoleUI
         {
             Console.Clear();
             Console.WriteLine($"FÖRETAG:  {company.CompanyName}");
-//id???
             Console.WriteLine($"          {company.Website}");
             Console.WriteLine($"          {company.Phone}");
             Console.WriteLine($"          {company.Email}");
@@ -178,9 +175,7 @@ internal class ConsoleUI
             Console.WriteLine($"          {company.Address.Street}");
             Console.WriteLine($"          {company.Address.PostalCode} {company.Address.City}");
             Console.WriteLine();
-            Console.WriteLine("        Kontaktperson: ");
- //          Console.WriteLine($"          {company.ContactPerson.Role}");
- //ROLE???
+            Console.WriteLine("        Kontaktperson: ");      
             Console.WriteLine($"          {company.ContactPerson.FirstName} {company.ContactPerson.LastName}");
             Console.WriteLine($"          direkt nummer:{company.ContactPerson.DirectPhone}");
             Console.WriteLine($"          personlig email:{company.ContactPerson.PersonalEmail}");
@@ -216,8 +211,6 @@ internal class ConsoleUI
             Console.WriteLine($"          {company.Address.PostalCode} {company.Address.City}");
             Console.WriteLine();
             Console.WriteLine("        Kontaktperson: ");
-            Console.WriteLine($"          ????Jobbtitel????????");
-//ROLE???
             Console.WriteLine($"          {company.ContactPerson.FirstName} {company.ContactPerson.LastName}");
             Console.WriteLine($"          direkt nummer:{company.ContactPerson.DirectPhone}");
             Console.WriteLine($"          personlig email:{company.ContactPerson.PersonalEmail}");
@@ -237,8 +230,7 @@ internal class ConsoleUI
                 Console.WriteLine("3. Email");
                 Console.WriteLine("4. Adress");
                 Console.WriteLine("5. Kontakt Person");
-                Console.WriteLine("6. Notes???") ;
-//Hur fixar jag Notes???
+                Console.WriteLine("6. Notes") ;
                 Console.WriteLine("7. Klar");
 
 
@@ -286,8 +278,10 @@ internal class ConsoleUI
                     case "5":
                         Console.WriteLine("Fyll I Alla Fält!");
                         Console.WriteLine();
-                        Console.Write("--Ny Jobbtitel Ska fixas!!!--");
-//ROLE
+                        Console.Write("Ny Jobbtitel: ");
+                        var roleName = Console.ReadLine()!;
+                        var roleEntity = _roleService.CreateRole(roleName);
+                        company.ContactPerson.RoleId = roleEntity.Id;
                         Console.Write("Nytt Förnamn: ");
                         company.ContactPerson.FirstName = Console.ReadLine()!;
                         Console.Write("Nytt Efternamn: ");
@@ -300,7 +294,10 @@ internal class ConsoleUI
                         break;
 
                     case "6":
-                        Console.WriteLine("Inväntar Fix");
+                        Console.WriteLine("Förändringar i Anteckningar: ");
+                        var note = Console.ReadLine()!;
+                        var noteEntity = _noteService.CreateNote(note);
+                        company.Note.Note = noteEntity.Note;
                         break;
 
                     case "7":
@@ -315,8 +312,6 @@ internal class ConsoleUI
                         Console.WriteLine($"          {company.Address.PostalCode} {company.Address.City}");
                         Console.WriteLine();
                         Console.WriteLine("        Kontaktperson: ");
-                        Console.WriteLine($"          ????Jobbtitel????????");
-//ROLE
                         Console.WriteLine($"          {company.ContactPerson.FirstName} {company.ContactPerson.LastName}");
                         Console.WriteLine($"          direkt nummer:{company.ContactPerson.DirectPhone}");
                         Console.WriteLine($"          personlig email:{company.ContactPerson.PersonalEmail}");
@@ -345,9 +340,9 @@ internal class ConsoleUI
         Console.Clear();
         Console.WriteLine("-----TA BORT FÖRETAGSKUND-----");
         Console.WriteLine();
-        Console.Write("Ange Id-nummer: ");
-        var id = int.Parse(Console.ReadLine()!);
-        var company = _companyService.GetCompanyById(id);
+        Console.Write("Ange Företagsnamn: ");
+        var name = Console.ReadLine()!;
+        var company = _companyService.GetCompanyByName(name);
         if (company == null)
            { Console.WriteLine("Företaget kunde inte hittas. Försök igen"); 
         }
@@ -355,8 +350,7 @@ internal class ConsoleUI
         {
             Console.Clear();
             Console.WriteLine("Vill du raddera detta företag och all dess Information?");
-            Console.WriteLine($"FÖRETAG:  FöretagsID: {company.Id}");
-            Console.WriteLine($"          {company.CompanyName}");
+            Console.WriteLine($"FÖRETAG:  {company.CompanyName}");
             Console.WriteLine($"          {company.Phone}");
             Console.WriteLine($"          {company.Email}");
             Console.WriteLine();
@@ -374,18 +368,19 @@ internal class ConsoleUI
                 switch (option)
                 {
                     case "0":
-                        //var companyEntity = _companyRepository.Get(x => x.Id == id);
 
-                        var noteId = company.NoteId;
-                        _noteService.DeleteNote(noteId);
+                        var companyEntity = _companyService.GetCompanyByName(name);
 
-                        var contactPersonId = company.ContactPersonId;
-                        _contactPersonService.DeleteContactPerson(contactPersonId);
+                        if (companyEntity != null)
+                        {
+                            _companyService.DeleteCompany(companyEntity.CompanyName);
+                            _contactPersonService.DeleteContactPerson(companyEntity.ContactPersonId);
+                            _noteService.DeleteNote(companyEntity.NoteId);
+                            Console.WriteLine("Företagskund är borttagen");
+                        }
+                        return;
+                        
 
-                        _companyService.DeleteCompany(id);
-                        Console.WriteLine("Företagskund är borttagen");
-                        break;
-//Hur gör man Cascade för att få med Notes och ContactPerson???
                     case "1":
                         Console.WriteLine("Inga ändringar gjorda. Tryck på en knapp för att återvända till huvudmenyn.");
                         return;

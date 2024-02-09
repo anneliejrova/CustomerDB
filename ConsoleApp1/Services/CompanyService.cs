@@ -2,7 +2,9 @@
 
 using ConsoleApp1.Entities;
 using ConsoleApp1.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System.IO;
+using System.Linq.Expressions;
 
 namespace ConsoleApp1.Services;
 
@@ -12,6 +14,7 @@ internal class CompanyService
     private readonly AddressService _addressService;
     private readonly ContactPersonService _contactPersonService;
     private readonly NoteService _noteService;
+    private object _context;
 
     public CompanyService(CompanyRepository companyRepository, AddressService addressService, ContactPersonService contactPersonService, NoteService noteService)
     {
@@ -35,7 +38,7 @@ internal class CompanyService
             Phone = phone,
             AddressId = addressEntity.Id,
             ContactPersonId = contactPersonEntity.Id,
-            NoteId = noteEntity.Id,
+            NoteId = noteEntity.Id
         };
 
         companyEntity = _companyRepository.Create(companyEntity);
@@ -68,10 +71,10 @@ internal class CompanyService
         return updatedCompanyEntity;
     }
 
-    public void DeleteCompany(int id)
+    public void DeleteCompany(string companyName)
     {
-        
-        _companyRepository.Delete(x => x.Id == id);
+        GetCompanyByName(companyName);
+        _companyRepository.Delete(x => x.CompanyName == companyName);
     }
 
 }
