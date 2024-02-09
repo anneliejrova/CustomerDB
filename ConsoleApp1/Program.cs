@@ -7,9 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 var builder = Host.CreateDefaultBuilder().ConfigureServices(services =>
-{ 
+{
     services.AddDbContext<DataContext>(x => x.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\ec\ConsoleApp1\ConsoleApp1\Data\local_db.mdf;Integrated Security=True;Connect Timeout=30;Encrypt=True"));
-    
+
     services.AddScoped<AddressRepository>();
     services.AddScoped<CompanyRepository>();
     services.AddScoped<ContactPersonRepository>();
@@ -22,10 +22,15 @@ var builder = Host.CreateDefaultBuilder().ConfigureServices(services =>
     services.AddScoped<NoteService>();
     services.AddScoped<RoleService>();
 
-    services.AddSingleton<ConsoleUI>();
 
+    services.AddSingleton<ConsoleUI>();
 
 }).Build();
 
 var consoleUI = builder.Services.GetRequiredService<ConsoleUI>();
-consoleUI.CreateCompany_UI();
+
+consoleUI.MainMenu();
+//consoleUI.CreateCompany_UI();
+//consoleUI.GetCompanies_UI();
+//consoleUI.EditCompanyInfo_UI();
+//consoleUI.DeleteCompany_UI();

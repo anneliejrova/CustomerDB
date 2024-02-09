@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConsoleApp1.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240208130354_Add Tables")]
-    partial class AddTables
+    [Migration("20240209015525_Tables Added")]
+    partial class TablesAdded
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

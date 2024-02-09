@@ -5,7 +5,7 @@
 namespace ConsoleApp1.Migrations
 {
     /// <inheritdoc />
-    public partial class AddTables : Migration
+    public partial class TablesAdded : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -57,11 +57,11 @@ namespace ConsoleApp1.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<int>(type: "int", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PersonalEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DirectPhone = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    DirectPhone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

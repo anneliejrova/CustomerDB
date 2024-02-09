@@ -36,7 +36,7 @@ internal class Repo<TEntity> where TEntity : class
 
     public virtual TEntity Update(Expression<Func<TEntity, bool>> expression, TEntity entity)
     {
-        var toUpdate = _context.Set<TEntity>().FirstOrDefault();
+        var toUpdate = _context.Set<TEntity>().FirstOrDefault(expression);
         _context.Entry(toUpdate!).CurrentValues.SetValues(entity);
         _context.SaveChanges();
 

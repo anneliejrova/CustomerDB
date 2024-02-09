@@ -49,6 +49,12 @@ internal class CompanyService
         return companyEntity;
     }
 
+    public CompanyEntity GetCompanyById(int id)
+    {
+        var companyEntity = _companyRepository.Get(x => x.Id == id);
+        return companyEntity;
+    }
+
     public IEnumerable<CompanyEntity> GetAllCompanies()
     {
         var companies = _companyRepository.GetAll();
@@ -58,7 +64,7 @@ internal class CompanyService
 
     public CompanyEntity UpdateCompany(CompanyEntity companyEntity)
     {
-        var updatedCompanyEntity = _companyRepository.Update(x => x.Id == companyEntity.Id, companyEntity);
+        var updatedCompanyEntity = _companyRepository.Update(x => x == companyEntity, companyEntity);
         return updatedCompanyEntity;
     }
 

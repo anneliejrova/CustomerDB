@@ -16,7 +16,7 @@ internal class ContactPersonService
         _roleService = roleService;
     }
 
-    public ContactPersonEntity CreateContactPerson(string firstName, string lastName, string personalEmail, string directPhone, string role)
+    public ContactPersonEntity CreateContactPerson(string role, string firstName, string lastName, string personalEmail, string directPhone)
     {
         var roleEntity = _roleService.CreateRole(role);
         var contactPersonEntity = new ContactPersonEntity()
@@ -25,7 +25,7 @@ internal class ContactPersonService
             LastName = lastName,
             PersonalEmail = personalEmail,
             DirectPhone = directPhone,
-            RoleId = roleEntity.Id
+            Role = roleEntity
         };
 
         _contactPersonRepository.Create(contactPersonEntity);

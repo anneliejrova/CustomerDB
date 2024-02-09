@@ -15,5 +15,5 @@ internal class DataContext : DbContext
     public DbSet<ContactPersonEntity> ContactPersons { get; set; }
     public DbSet<NoteEntity> Notes { get; set; }
     public DbSet<RoleEntity> Roles { get; set; }
-    
 }
+
