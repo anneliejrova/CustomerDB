@@ -30,7 +30,3 @@ var builder = Host.CreateDefaultBuilder().ConfigureServices(services =>
 var consoleUI = builder.Services.GetRequiredService<ConsoleUI>();
 
 consoleUI.MainMenu();
-//consoleUI.CreateCompany_UI();
-//consoleUI.GetCompanies_UI();
-//consoleUI.EditCompanyInfo_UI();
-//consoleUI.DeleteCompany_UI();

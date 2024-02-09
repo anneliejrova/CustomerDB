@@ -127,6 +127,8 @@ internal class ConsoleUI
         {
             Console.WriteLine();
             Console.WriteLine($"FÖRETAG:  {company.CompanyName}");
+//id???
+            Console.WriteLine($"          {company.Website}");
             Console.WriteLine($"          {company.Phone}");
             Console.WriteLine($"          {company.Email}");
             Console.WriteLine();
@@ -134,7 +136,8 @@ internal class ConsoleUI
             Console.WriteLine($"          {company.Address.PostalCode} {company.Address.City}");
             Console.WriteLine();
             Console.WriteLine("        Kontaktperson: ");
-            Console.WriteLine($"          ????Jobbtitel????????");
+            Console.WriteLine($"          {company.ContactPerson.Role}");
+//ROLE???
             Console.WriteLine($"          {company.ContactPerson.FirstName} {company.ContactPerson.LastName}");
             Console.WriteLine($"          direkt nummer:{company.ContactPerson.DirectPhone}");
             Console.WriteLine($"          personlig email:{company.ContactPerson.PersonalEmail}");
@@ -165,6 +168,8 @@ internal class ConsoleUI
         {
             Console.Clear();
             Console.WriteLine($"FÖRETAG:  {company.CompanyName}");
+//id???
+            Console.WriteLine($"          {company.Website}");
             Console.WriteLine($"          {company.Phone}");
             Console.WriteLine($"          {company.Email}");
             Console.WriteLine();
@@ -173,7 +178,7 @@ internal class ConsoleUI
             Console.WriteLine();
             Console.WriteLine("        Kontaktperson: ");
             Console.WriteLine($"          ????Jobbtitel????????");
- //HUR HITTAR MAN ROLE???
+ //ROLE???
             Console.WriteLine($"          {company.ContactPerson.FirstName} {company.ContactPerson.LastName}");
             Console.WriteLine($"          direkt nummer:{company.ContactPerson.DirectPhone}");
             Console.WriteLine($"          personlig email:{company.ContactPerson.PersonalEmail}");
@@ -201,6 +206,7 @@ internal class ConsoleUI
         {
             Console.Clear();
             Console.WriteLine($"FÖRETAG:  {company.CompanyName}");
+            Console.WriteLine($"          {company.Website}");
             Console.WriteLine($"          {company.Phone}");
             Console.WriteLine($"          {company.Email}");
             Console.WriteLine();
@@ -224,13 +230,14 @@ internal class ConsoleUI
                 Console.WriteLine("-----ÄNDRINGAR-----");
                 Console.WriteLine("Vad ska ändras?");
                 Console.WriteLine("0. Företagsnamn");
-                Console.WriteLine("1. Telefonnummer");
-                Console.WriteLine("2. Email");
-                Console.WriteLine("3. Adress");
-                Console.WriteLine("4. Kontakt Person");
-                Console.WriteLine("5. Notes???") ;
+                Console.WriteLine("1. Webbsida");
+                Console.WriteLine("2. Telefonnummer");
+                Console.WriteLine("3. Email");
+                Console.WriteLine("4. Adress");
+                Console.WriteLine("5. Kontakt Person");
+                Console.WriteLine("6. Notes???") ;
 //Hur fixar jag Notes???
-                Console.WriteLine("6. Klar");
+                Console.WriteLine("7. Klar");
 
 
                 var option = Console.ReadLine();
@@ -244,19 +251,25 @@ internal class ConsoleUI
                         break;
 
                     case "1":
+                        Console.Write("Ny Webbsida: ");
+                        company.Website = Console.ReadLine()!;
+                        var newWebsite = _companyService.UpdateCompany(company);
+                        break;
+
+                    case "2":
                         Console.Write("Nytt Telefonnummer: ");
                         company.Phone = Console.ReadLine()!;
                         var newPhone = _companyService.UpdateCompany(company);
                         Console.Clear();
                         break;
 
-                    case "2":
+                    case "3":
                         Console.Write("Ny Email: ");
                         company.Email = Console.ReadLine()!;
                         var newEmail = _companyService.UpdateCompany(company);
                         break;
 
-                    case "3":
+                    case "4":
                         Console.WriteLine("Fyll I Alla Fält!");
                         Console.WriteLine();
                         Console.Write("Ny Gatuadress: ");
@@ -268,7 +281,7 @@ internal class ConsoleUI
                         var newAddress = _companyService.UpdateCompany(company);
                         break;
 
-                    case "4":
+                    case "5":
                         Console.WriteLine("Fyll I Alla Fält!");
                         Console.WriteLine();
                         Console.Write("--Ny Jobbtitel Ska fixas!!!--");
@@ -284,10 +297,15 @@ internal class ConsoleUI
                         var newContactPerson = _companyService.UpdateCompany(company);
                         break;
 
-                    case "5":
+                    case "6":
+                        Console.WriteLine("Inväntar Fix");
+                        break;
+
+                    case "7":
                         Console.WriteLine("----- ÄNDRINGAR GENOMFÖRDA-----");
                         Console.WriteLine();
                         Console.WriteLine($"FÖRETAG:  {company.CompanyName}");
+                        Console.WriteLine($"          {company.Website}");
                         Console.WriteLine($"          {company.Phone}");
                         Console.WriteLine($"          {company.Email}");
                         Console.WriteLine();
