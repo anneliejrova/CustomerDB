@@ -364,7 +364,7 @@ internal class ConsoleUI
 
             while (true)
             {
-                Console.WriteLine("-----ÄNDRINGAR-----");
+                Console.WriteLine("-----RADDERA-----");
                 Console.WriteLine("0.JA");
                 Console.WriteLine("1.NEJ");
 
