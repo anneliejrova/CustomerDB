@@ -214,6 +214,8 @@ internal class ConsoleUI
             Console.WriteLine();
             Console.WriteLine();
         }
+        Console.WriteLine();
+        Console.WriteLine("Tryck på valfri knapp för att återgå till menyn");
         Console.ReadKey();
     }
 
@@ -367,6 +369,8 @@ internal class ConsoleUI
             }         
             
         }
+        Console.WriteLine();
+        Console.WriteLine("Tryck på valfri knapp för att återgå till menyn");
         Console.ReadKey();
 
     }
