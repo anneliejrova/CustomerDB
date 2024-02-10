@@ -2,7 +2,9 @@
 using ConsoleApp1.Entities;
 using ConsoleApp1.Repositories;
 using ConsoleApp1.Services;
+using System.Collections.Immutable;
 using System.Runtime.InteropServices;
+using static Azure.Core.HttpHeader;
 
 namespace ConsoleApp1;
 
@@ -20,6 +22,12 @@ internal class ConsoleUI
         _contactPersonService = contactPersonService;
         _roleService = roleService;
     }
+
+
+
+//----------------------------------------------HUVUDMENY--------------------------------------------------------
+
+
 
     public void MainMenu()
     {
@@ -67,6 +75,12 @@ internal class ConsoleUI
             }
         }
     }
+
+
+
+    //----------------------------------------------CREATE--------------------------------------------
+
+
 
     public void CreateCompany_UI()
     {
@@ -122,10 +136,19 @@ internal class ConsoleUI
             Console.ReadKey();
         }
     }
+
+
+
+    //----------------------------------------------LIST ALL--------------------------------------------------
+
+
+
     public void GetCompanies_UI()
     {
         Console.Clear() ;
         var companies = _companyService.GetAllCompanies();
+
+
         foreach (var company in companies)
 
         {
@@ -151,6 +174,12 @@ internal class ConsoleUI
         Console.WriteLine("Tryck på valfri knapp för att återgå till menyn");
         Console.ReadKey();
     }
+
+
+
+    //----------------------------------------------GET ONE-------------------------------------------------------
+
+
 
     public void FindOneCompany_UI()
     {
@@ -187,6 +216,13 @@ internal class ConsoleUI
         }
         Console.ReadKey();
     }
+
+
+
+    //----------------------------------------------EDIT-------------------------------------------------------
+
+
+
     public void EditCompanyInfo_UI()
     {
         Console.Clear();
@@ -334,6 +370,12 @@ internal class ConsoleUI
         Console.ReadKey();
 
     }
+
+
+
+    //----------------------------------------------DELETE------------------------------------------------
+
+
 
     public void DeleteCompany_UI()
     {
