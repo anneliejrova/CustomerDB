@@ -336,6 +336,8 @@ internal class ConsoleUI
                         var note = Console.ReadLine()!;
                         var noteEntity = _noteService.CreateNote(note);
                         company.Note.Note = noteEntity.Note;
+                        Console.WriteLine();
+                        Console.WriteLine("Tryck på valfri knapp för att återgå till menyn");
                         break;
 
                     case "7":
@@ -359,6 +361,10 @@ internal class ConsoleUI
                         Console.WriteLine();
                         Console.WriteLine();
                         Console.ReadKey();
+
+                        Console.WriteLine();
+                        Console.WriteLine("Tryck på valfri knapp för att återgå till menyn");
+
                         return;
 
                     default:
@@ -369,9 +375,7 @@ internal class ConsoleUI
             }         
             
         }
-        Console.WriteLine();
-        Console.WriteLine("Tryck på valfri knapp för att återgå till menyn");
-        Console.ReadKey();
+        
 
     }
 
